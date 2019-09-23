@@ -1,0 +1,32 @@
+﻿@page "/"
+@using CaptiveIQTest.Client.Shared.Components
+@using CaptiveIQTest.SharedObjs;
+@inject DataState DataState;
+
+@if (this.user != null)
+{
+    <h3>You are @this.DataState.User.Id</h3>
+    <FormulaBar />
+    <CellTable />}
+else
+{
+    <h3>Which User are you?</h3>
+    <EditForm Model="this.name">
+        <InputText @bind-Value="@name" />
+        <button class="btn btn-primary" type="submit" @onclick="this.getUser">Submit</button>
+    </EditForm>
+}
+
+@code {
+
+    private bool loaded = false;
+
+    private string name { get; set; } = "";
+
+    private CIQUser user => this.DataState.User;
+
+    private void getUser()
+    {
+        this.DataState.SetUser(this.name);
+    }
+}

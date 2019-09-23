@@ -1,0 +1,18 @@
+﻿@using CaptiveIQTest.SharedObjs;
+@inject DataState DataState;
+
+<input value="@this.Data.Data"  @onchange="@this.update" @onclick="@(() => this.DataState.SetSelectedCell(this.Column, this.Row))" />
+
+@code {
+    [Parameter] public CellData Data { get; set; }
+
+    [Parameter] public char Column { get; set; }
+
+    [Parameter] public int Row { get; set; }
+
+    public void update(UIChangeEventArgs evt)
+    {
+        // Update the state with the newly calculated value
+        this.DataState.SetCellValue(evt.Value.ToString());
+    }
+}

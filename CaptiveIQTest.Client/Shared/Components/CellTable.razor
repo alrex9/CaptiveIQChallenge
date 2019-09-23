@@ -1,0 +1,39 @@
+﻿@using CaptiveIQTest.SharedObjs;
+@inject DataState StateData;
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            @foreach (var column in this.Columns)
+            {
+                <th class="text-center">@column.ColumnLetter</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+
+            @for (var i = 0; i < 10; i++)
+            {
+                <tr>
+                    <td class="text-center"><b>@(i + 1)</b></td>
+                    @for (var j = 0; j < this.Columns.Count; j++)
+                    {
+                        <td><CellItem Data="@this.Columns[j].CellDatas[i]" Column="this.Columns[j].ColumnLetter" Row="i" /></td>
+                    }
+                </tr>
+            }
+
+    </tbody>
+</table>
+
+@code  {
+    public List<ColumnData> Columns => this.StateData.User.Columns;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine($"Column count: {this.Columns.Count}");
+        Console.WriteLine($"First column row count: {this.Columns.Max(x => x.CellDatas.Count)}");
+    }
+
+}

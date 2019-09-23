@@ -1,0 +1,11 @@
+﻿@inject DataState DataState;
+
+<input @onchange="@this.update" value="@this.DataState.SelectedCell.Formula" />
+
+@code {
+    public void update(UIChangeEventArgs evt)
+    {
+        // Update state
+        this.DataState.SetCellFormula(evt.Value.ToString());
+    }
+} 
